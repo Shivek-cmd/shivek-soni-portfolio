@@ -59,8 +59,8 @@ export default function Navbar() {
               }}
               className="font-heading text-xl font-bold tracking-tight"
             >
-              <span className="text-gradient-gold">Shivek</span>
-              <span className="text-text-primary"> Soni</span>
+              <span className="text-gradient-gold">Automate</span>
+              <span className="text-text-primary"> with Level</span>
             </a>
 
             {/* Desktop Navigation */}

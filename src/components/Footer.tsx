@@ -19,8 +19,8 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <a href="#home" className="font-heading text-xl font-bold">
-              <span className="text-gradient-gold">Shivek</span>
-              <span className="text-text-primary"> Soni</span>
+              <span className="text-gradient-gold">Automate</span>
+              <span className="text-text-primary"> with Level</span>
             </a>
             <p className="mt-4 text-sm text-text-secondary leading-relaxed max-w-xs">
               GoHighLevel Expert &amp; Digital Automation Specialist. Building

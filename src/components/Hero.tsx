@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { siteConfig, stats } from "@/data/siteConfig";
+import { stats } from "@/data/siteConfig";
+import ParticleNetwork from "@/components/ParticleNetwork";
 
 export default function Hero() {
   return (
@@ -9,8 +10,8 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background grid */}
-      <div className="absolute inset-0 bg-grid opacity-50" />
+      {/* Animated particle network background */}
+      <ParticleNetwork />
 
       {/* Radial gradient overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(200,165,92,0.08)_0%,transparent_70%)]" />
@@ -41,9 +42,9 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight"
           >
-            <span className="block text-text-primary">I Build Systems</span>
-            <span className="block text-text-primary mt-2">That Scale</span>
-            <span className="block text-gradient-gold mt-2">Businesses</span>
+            <span className="block text-text-primary">GoHighLevel Expert.</span>
+            <span className="block text-text-primary mt-2">I Build Automation</span>
+            <span className="block text-gradient-gold mt-2">Systems That Scale.</span>
           </motion.h1>
 
           {/* Subheading */}
@@ -53,9 +54,8 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-8 max-w-2xl text-lg md:text-xl text-text-secondary leading-relaxed"
           >
-            {siteConfig.title}. I architect end-to-end automation solutions on
-            GoHighLevel — from CRM pipelines and AI-powered workflows to
-            white-label SaaS platforms.
+            CRM pipelines, AI workflows, funnels, chatbots and more —
+            everything GoHighLevel offers, built right.
           </motion.p>
 
           {/* CTA Buttons */}

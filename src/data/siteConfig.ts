@@ -8,7 +8,7 @@ export const siteConfig = {
   location: "New Delhi, India", // PLACEHOLDER: Replace with actual city/location
   phone: "+91 XXXX XXXX XX", // PLACEHOLDER: Replace with actual phone
   social: {
-    linkedin: "https://linkedin.com/in/shiveksoni", // PLACEHOLDER: Replace with actual LinkedIn
+    linkedin: "https://www.linkedin.com/in/shivek-soni-b860ab170/",
     twitter: "https://x.com/shiveksoni", // PLACEHOLDER: Replace with actual Twitter/X
     github: "https://github.com/shiveksoni", // PLACEHOLDER: Replace with actual GitHub
     instagram: "https://instagram.com/shiveksoni", // PLACEHOLDER: Replace with actual Instagram
