@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/data/siteConfig";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -64,7 +66,16 @@ export const metadata: Metadata = {
     canonical: siteConfig.url,
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  other: {
+    "geo.region": "US",
+    "geo.country": "US",
+    "content-language": "en-US",
   },
 };
 
@@ -123,7 +134,10 @@ export default function RootLayout({
                 "@type": "Person",
                 name: siteConfig.name,
               },
-              areaServed: "Worldwide",
+              areaServed: {
+                "@type": "Country",
+                name: "United States",
+              },
               serviceType: [
                 "GoHighLevel CRM Setup",
                 "Workflow Automation",
@@ -141,7 +155,9 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${playfair.variable} antialiased`}
       >
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

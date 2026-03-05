@@ -1,13 +1,14 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import { serviceCategories } from "@/data/services";
+import { useRef } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { serviceCategories } from "@/data/serviceCategories";
 
 export default function Services() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   return (
     <section id="services" className="relative py-32">
@@ -37,101 +38,102 @@ export default function Services() {
             Expertise
           </h2>
           <p className="mt-6 max-w-2xl mx-auto text-text-secondary text-lg">
-            Every feature. Every tool. Every integration. I work across the
-            entire GHL ecosystem to build solutions that drive real results.
+            Six comprehensive service categories covering every feature, tool,
+            and integration GoHighLevel offers. Click any category to explore
+            everything included.
           </p>
         </motion.div>
 
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* Services Grid — 3x2 layout */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {serviceCategories.map((service, index) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, y: 30 }}
+              id={`service-${service.id}`}
+              initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.06 }}
-              className={`group relative rounded-2xl border transition-all duration-300 cursor-pointer ${
-                expandedId === service.id
-                  ? "border-gold/30 bg-card shadow-lg shadow-gold/5"
-                  : "border-border bg-card/50 hover:border-border-hover hover:bg-card"
-              }`}
-              onClick={() =>
-                setExpandedId(expandedId === service.id ? null : service.id)
-              }
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="p-7">
-                {/* Icon & Title */}
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <span className="text-3xl" role="img" aria-label={service.title}>
-                      {service.icon}
-                    </span>
-                    <h3 className="mt-3 text-lg font-semibold text-text-primary group-hover:text-gold transition-colors">
-                      {service.title}
-                    </h3>
-                  </div>
-                  <motion.svg
-                    animate={{ rotate: expandedId === service.id ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="w-5 h-5 text-text-muted mt-1 flex-shrink-0"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </motion.svg>
+              <Link
+                href={`/services/${service.slug}`}
+                className="group relative flex flex-col h-full rounded-2xl border border-border bg-card/50 hover:border-gold/30 hover:bg-card hover:shadow-xl hover:shadow-gold/5 transition-all duration-500 overflow-hidden"
+              >
+                {/* Image area */}
+                <div className="relative w-full h-48 overflow-hidden bg-gradient-to-b from-surface/80 to-card/50">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    width={800}
+                    height={600}
+                    className="w-full h-full object-cover p-6 transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
                 </div>
 
-                {/* Description */}
-                <p className="text-sm text-text-secondary leading-relaxed">
-                  {service.description}
-                </p>
-
-                {/* Expanded Features */}
-                <motion.div
-                  initial={false}
-                  animate={{
-                    height: expandedId === service.id ? "auto" : 0,
-                    opacity: expandedId === service.id ? 1 : 0,
-                  }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
-                >
-                  <div className="pt-5 mt-5 border-t border-border">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-gold mb-3">
-                      What&apos;s Included
-                    </p>
-                    <ul className="space-y-2">
-                      {service.features.map((feature) => (
-                        <li
-                          key={feature}
-                          className="flex items-start gap-2 text-sm text-text-secondary"
-                        >
-                          <svg
-                            className="w-4 h-4 text-gold mt-0.5 flex-shrink-0"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M5 13l4 4L19 7"
-                            />
-                          </svg>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
+                {/* Content */}
+                <div className="flex flex-col flex-1 p-7">
+                  {/* Icon & Title */}
+                  <div className="flex items-center gap-3 mb-3">
+                    <span
+                      className="text-2xl"
+                      role="img"
+                      aria-label={service.title}
+                    >
+                      {service.icon}
+                    </span>
+                    <h3 className="text-xl font-bold text-text-primary group-hover:text-gold transition-colors duration-300">
+                      {service.shortTitle}
+                    </h3>
                   </div>
-                </motion.div>
-              </div>
+
+                  {/* Tagline */}
+                  <p className="text-sm text-gold/80 font-medium mb-3 italic">
+                    {service.tagline}
+                  </p>
+
+                  {/* Description */}
+                  <p className="text-sm text-text-secondary leading-relaxed mb-5 flex-1">
+                    {service.description}
+                  </p>
+
+                  {/* Highlights */}
+                  <div className="grid grid-cols-2 gap-2 mb-6">
+                    {service.highlights.map((highlight) => (
+                      <div
+                        key={highlight}
+                        className="flex items-center gap-2 text-xs text-text-muted"
+                      >
+                        <div className="w-1 h-1 rounded-full bg-gold flex-shrink-0" />
+                        {highlight}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* CTA */}
+                  <div className="flex items-center gap-2 text-sm font-semibold text-gold group-hover:gap-3 transition-all duration-300">
+                    Explore This Service
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Hover border glow */}
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none border border-gold/20" />
+              </Link>
             </motion.div>
           ))}
         </div>

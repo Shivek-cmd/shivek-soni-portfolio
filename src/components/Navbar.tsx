@@ -1,41 +1,99 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { navigation } from "@/data/siteConfig";
+import { serviceCategories } from "@/data/serviceCategories";
+import Logo from "@/components/Logo";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [activeSection, setActiveSection] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+  const servicesRef = useRef<HTMLDivElement>(null);
+  const servicesTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      const sections = navigation.map((item) => item.href.replace("#", ""));
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i]);
+      if (!isHomePage) return;
+      const sectionIds = navigation
+        .filter((item) => item.href.startsWith("#"))
+        .map((item) => item.href.replace("#", ""));
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sectionIds[i]);
         if (section) {
           const rect = section.getBoundingClientRect();
           if (rect.top <= 120) {
-            setActiveSection(sections[i]);
-            break;
+            setActiveSection(sectionIds[i]);
+            return;
           }
         }
       }
+      setActiveSection("");
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHomePage]);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (servicesRef.current && !servicesRef.current.contains(e.target as Node)) {
+        setIsServicesOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleNavClick = (href: string) => {
     setIsMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    setIsServicesOpen(false);
+    setIsMobileServicesOpen(false);
+    if (isHomePage) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      window.location.assign(`/${href}`);
     }
+  };
+
+  const handleServicesMouseEnter = () => {
+    if (servicesTimeoutRef.current) {
+      clearTimeout(servicesTimeoutRef.current);
+      servicesTimeoutRef.current = null;
+    }
+    setIsServicesOpen(true);
+  };
+
+  const handleServicesMouseLeave = () => {
+    servicesTimeoutRef.current = setTimeout(() => {
+      setIsServicesOpen(false);
+    }, 200);
+  };
+
+  const isPageLink = (href: string) => href.startsWith("/");
+
+  const isNavActive = (item: { label: string; href: string }) => {
+    if (isPageLink(item.href)) {
+      if (item.href === "/blog") return pathname.startsWith("/blog");
+      return pathname === item.href;
+    }
+    const sectionId = item.href.replace("#", "");
+    if (sectionId === "services") {
+      return (isHomePage && activeSection === "services") || (!isHomePage && pathname.startsWith("/services"));
+    }
+    return isHomePage && activeSection === sectionId;
   };
 
   return (
@@ -45,45 +103,147 @@ export default function Navbar() {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "glass border-b border-border" : ""
+          isScrolled || !isHomePage ? "glass border-b border-border" : ""
         }`}
       >
         <nav className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
-            {/* Logo */}
-            <a
-              href="#home"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick("#home");
-              }}
-              className="font-heading text-xl font-bold tracking-tight"
-            >
-              <span className="text-gradient-gold">Automate</span>
-              <span className="text-text-primary"> with Level</span>
-            </a>
+            {/* Logo — always links to homepage */}
+            <Link href="/" className="cursor-pointer flex-shrink-0">
+              <Logo className="h-12 w-auto" />
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-1">
               {navigation.map((item) => {
+                const active = isNavActive(item);
                 const sectionId = item.href.replace("#", "");
-                const isActive = activeSection === sectionId;
+
+                if (sectionId === "services") {
+                  return (
+                    <div
+                      key={item.href}
+                      ref={servicesRef}
+                      className="relative"
+                      onMouseEnter={handleServicesMouseEnter}
+                      onMouseLeave={handleServicesMouseLeave}
+                    >
+                      <a
+                        href={item.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleNavClick(item.href);
+                        }}
+                        className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-full inline-flex items-center gap-1 ${
+                          active
+                            ? "text-gold"
+                            : "text-text-secondary hover:text-text-primary"
+                        }`}
+                      >
+                        {item.label}
+                        <svg
+                          className={`w-3 h-3 transition-transform duration-200 ${
+                            isServicesOpen ? "rotate-180" : ""
+                          }`}
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                        {active && (
+                          <motion.div
+                            layoutId="activeNav"
+                            className="absolute inset-0 rounded-full bg-gold/10 border border-gold/20"
+                            transition={{
+                              type: "spring",
+                              stiffness: 380,
+                              damping: 30,
+                            }}
+                          />
+                        )}
+                      </a>
+
+                      <AnimatePresence>
+                        {isServicesOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 8 }}
+                            transition={{ duration: 0.2 }}
+                            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl shadow-black/40 overflow-hidden"
+                          >
+                            <div className="py-2 max-h-[70vh] overflow-y-auto">
+                              {serviceCategories.map((service) => (
+                                <Link
+                                  key={service.id}
+                                  href={`/services/${service.slug}`}
+                                  onClick={() => {
+                                    setIsServicesOpen(false);
+                                    setIsMobileMenuOpen(false);
+                                  }}
+                                  className="w-full text-left px-4 py-2.5 text-sm text-text-secondary hover:text-gold hover:bg-surface/60 transition-colors flex items-center gap-3"
+                                >
+                                  <span className="text-lg flex-shrink-0">{service.icon}</span>
+                                  <span>{service.title}</span>
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                }
+
+                // Page links (About, Blog, Contact)
+                if (isPageLink(item.href)) {
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-full ${
+                        active
+                          ? "text-gold"
+                          : "text-text-secondary hover:text-text-primary"
+                      }`}
+                    >
+                      {item.label}
+                      {active && (
+                        <motion.div
+                          layoutId="activeNav"
+                          className="absolute inset-0 rounded-full bg-gold/10 border border-gold/20"
+                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                    </Link>
+                  );
+                }
+
+                // Section links (Process, My Work)
                 return (
                   <a
                     key={item.href}
-                    href={item.href}
+                    href={isHomePage ? item.href : `/${item.href}`}
                     onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick(item.href);
+                      if (isHomePage) {
+                        e.preventDefault();
+                        handleNavClick(item.href);
+                      }
                     }}
                     className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-full ${
-                      isActive
+                      active
                         ? "text-gold"
                         : "text-text-secondary hover:text-text-primary"
                     }`}
                   >
                     {item.label}
-                    {isActive && (
+                    {active && (
                       <motion.div
                         layoutId="activeNav"
                         className="absolute inset-0 rounded-full bg-gold/10 border border-gold/20"
@@ -100,16 +260,12 @@ export default function Navbar() {
             </div>
 
             {/* CTA Button - Desktop */}
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick("#contact");
-              }}
+            <Link
+              href="/contact"
               className="hidden lg:inline-flex items-center gap-2 rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-background transition-all duration-200 hover:bg-gold-light hover:shadow-lg hover:shadow-gold/20"
             >
               Let&apos;s Talk
-            </a>
+            </Link>
 
             {/* Mobile Menu Button */}
             <button
@@ -161,39 +317,136 @@ export default function Navbar() {
               transition={{ duration: 0.3, delay: 0.1 }}
               className="flex flex-col items-center justify-center h-full gap-6"
             >
-              {navigation.map((item, index) => (
-                <motion.a
-                  key={item.href}
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(item.href);
-                  }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + index * 0.05 }}
-                  className={`text-2xl font-heading font-semibold transition-colors ${
-                    activeSection === item.href.replace("#", "")
-                      ? "text-gold"
-                      : "text-text-secondary hover:text-text-primary"
-                  }`}
-                >
-                  {item.label}
-                </motion.a>
-              ))}
-              <motion.a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick("#contact");
-                }}
+              {navigation.map((item, index) => {
+                const sectionId = item.href.replace("#", "");
+
+                if (sectionId === "services") {
+                  return (
+                    <div key={item.href} className="flex flex-col items-center">
+                      <motion.button
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 + index * 0.05 }}
+                        onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
+                        className={`text-2xl font-heading font-semibold transition-colors inline-flex items-center gap-2 ${
+                          isNavActive(item)
+                            ? "text-gold"
+                            : "text-text-secondary hover:text-text-primary"
+                        }`}
+                      >
+                        {item.label}
+                        <svg
+                          className={`w-4 h-4 transition-transform duration-200 ${
+                            isMobileServicesOpen ? "rotate-180" : ""
+                          }`}
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </motion.button>
+
+                      <AnimatePresence>
+                        {isMobileServicesOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="overflow-hidden mt-2"
+                          >
+                            <div className="flex flex-col items-center gap-2 py-2">
+                              {serviceCategories.map((service) => (
+                                <Link
+                                  key={service.id}
+                                  href={`/services/${service.slug}`}
+                                  onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    setIsMobileServicesOpen(false);
+                                  }}
+                                  className="text-sm text-text-secondary hover:text-gold transition-colors flex items-center gap-2 py-1"
+                                >
+                                  <span>{service.icon}</span>
+                                  <span>{service.shortTitle}</span>
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                }
+
+                // Page links in mobile
+                if (isPageLink(item.href)) {
+                  return (
+                    <motion.div
+                      key={item.href}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 + index * 0.05 }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`text-2xl font-heading font-semibold transition-colors ${
+                          isNavActive(item)
+                            ? "text-gold"
+                            : "text-text-secondary hover:text-text-primary"
+                        }`}
+                      >
+                        {item.label}
+                      </Link>
+                    </motion.div>
+                  );
+                }
+
+                // Section links in mobile
+                return (
+                  <motion.a
+                    key={item.href}
+                    href={isHomePage ? item.href : `/${item.href}`}
+                    onClick={(e) => {
+                      if (isHomePage) {
+                        e.preventDefault();
+                        handleNavClick(item.href);
+                      } else {
+                        setIsMobileMenuOpen(false);
+                      }
+                    }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + index * 0.05 }}
+                    className={`text-2xl font-heading font-semibold transition-colors ${
+                      isNavActive(item)
+                        ? "text-gold"
+                        : "text-text-secondary hover:text-text-primary"
+                    }`}
+                  >
+                    {item.label}
+                  </motion.a>
+                );
+              })}
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="mt-4 inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3 text-lg font-semibold text-background"
+                transition={{ delay: 0.45 }}
               >
-                Let&apos;s Talk
-              </motion.a>
+                <Link
+                  href="/contact"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3 text-lg font-semibold text-background"
+                >
+                  Let&apos;s Talk
+                </Link>
+              </motion.div>
             </motion.nav>
           </motion.div>
         )}

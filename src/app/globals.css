@@ -98,3 +98,18 @@ body {
   mask-composite: exclude;
   pointer-events: none;
 }
+
+/* Service card blink animation */
+@keyframes border-blink {
+  0% { border-color: rgba(200, 165, 92, 0); box-shadow: none; }
+  15% { border-color: rgba(200, 165, 92, 0.8); box-shadow: 0 0 25px rgba(200, 165, 92, 0.25); }
+  30% { border-color: rgba(200, 165, 92, 0); box-shadow: none; }
+  50% { border-color: rgba(200, 165, 92, 0); box-shadow: none; }
+  65% { border-color: rgba(200, 165, 92, 0.8); box-shadow: 0 0 25px rgba(200, 165, 92, 0.25); }
+  80% { border-color: rgba(200, 165, 92, 0); box-shadow: none; }
+  100% { border-color: rgba(200, 165, 92, 0); box-shadow: none; }
+}
+
+.service-blink {
+  animation: border-blink 2.5s ease-in-out;
+}

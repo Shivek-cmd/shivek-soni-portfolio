@@ -1,8 +1,17 @@
 "use client";
 
 import { siteConfig, navigation } from "@/data/siteConfig";
+import { serviceCategories } from "@/data/serviceCategories";
+import Logo from "@/components/Logo";
+import Link from "next/link";
 
-export default function Footer() {
+interface FooterPost {
+  title: string;
+  slug: string;
+  date: string;
+}
+
+export default function Footer({ latestPosts = [] }: { latestPosts?: FooterPost[] }) {
   const currentYear = new Date().getFullYear();
 
   const handleNavClick = (href: string) => {
@@ -15,12 +24,11 @@ export default function Footer() {
   return (
     <footer className="relative border-t border-border bg-surface/30">
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
-        <div className="grid md:grid-cols-3 gap-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div>
-            <a href="#home" className="font-heading text-xl font-bold">
-              <span className="text-gradient-gold">Automate</span>
-              <span className="text-text-primary"> with Level</span>
+            <a href="#home" className="inline-block">
+              <Logo className="h-9 w-auto" />
             </a>
             <p className="mt-4 text-sm text-text-secondary leading-relaxed max-w-xs">
               GoHighLevel Expert &amp; Digital Automation Specialist. Building
@@ -67,36 +75,60 @@ export default function Footer() {
                   </a>
                 </li>
               ))}
+              <li>
+                <Link href="/blog" className="text-sm text-text-secondary hover:text-gold transition-colors">
+                  Blog
+                </Link>
+              </li>
             </ul>
           </div>
 
           {/* Services */}
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-widest text-text-muted mb-4">
-              Top Services
+              Services
             </h4>
             <ul className="space-y-3">
-              {[
-                "CRM & Pipeline Management",
-                "Workflow Automation",
-                "Funnel & Website Building",
-                "AI-Powered Tools",
-                "White-Label SaaS",
-                "API Integrations",
-              ].map((service) => (
-                <li key={service}>
-                  <a
-                    href="#services"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick("#services");
-                    }}
+              {serviceCategories.map((service) => (
+                <li key={service.id}>
+                  <Link
+                    href={`/services/${service.slug}`}
                     className="text-sm text-text-secondary hover:text-gold transition-colors"
                   >
-                    {service}
-                  </a>
+                    {service.shortTitle}
+                  </Link>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          {/* Latest Posts */}
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-widest text-text-muted mb-4">
+              Latest Posts
+            </h4>
+            <ul className="space-y-3">
+              {latestPosts.length > 0 ? (
+                latestPosts.map((post) => (
+                  <li key={post.slug}>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="text-sm text-text-secondary hover:text-gold transition-colors line-clamp-2"
+                    >
+                      {post.title}
+                    </Link>
+                    <p className="text-xs text-text-muted mt-0.5">
+                      {new Date(post.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                    </p>
+                  </li>
+                ))
+              ) : (
+                <li>
+                  <Link href="/blog" className="text-sm text-text-secondary hover:text-gold transition-colors">
+                    Visit our blog →
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>
