@@ -231,6 +231,25 @@ export default function Navbar() {
               })}
             </div>
 
+            {/* Blog Link - Desktop */}
+            <Link
+              href="/blog"
+              className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-full ${
+                pathname.startsWith("/blog")
+                  ? "text-gold"
+                  : "text-text-secondary hover:text-text-primary"
+              }`}
+            >
+              Blog
+              {pathname.startsWith("/blog") && (
+                <motion.div
+                  layoutId="activeNav"
+                  className="absolute inset-0 rounded-full bg-gold/10 border border-gold/20"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
+            </Link>
+
             {/* CTA Button - Desktop */}
             <a
               href={isHomePage ? "#contact" : "/#contact"}
@@ -387,6 +406,23 @@ export default function Navbar() {
                   </motion.a>
                 );
               })}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.45 }}
+              >
+                <Link
+                  href="/blog"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`text-2xl font-heading font-semibold transition-colors ${
+                    pathname.startsWith("/blog")
+                      ? "text-gold"
+                      : "text-text-secondary hover:text-text-primary"
+                  }`}
+                >
+                  Blog
+                </Link>
+              </motion.div>
               <motion.a
                 href={isHomePage ? "#contact" : "/#contact"}
                 onClick={(e) => {
