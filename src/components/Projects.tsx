@@ -2,6 +2,7 @@
 
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
+import Link from "next/link";
 import { projects, projectCategories } from "@/data/projects";
 
 export default function Projects() {
@@ -204,8 +205,8 @@ export default function Projects() {
                       )}
                     </AnimatePresence>
 
-                    {/* Visit Site Button */}
-                    <div className="mt-5 pt-4 border-t border-border">
+                    {/* Visit Site & Case Study Buttons */}
+                    <div className="mt-5 pt-4 border-t border-border flex items-center gap-4">
                       <a
                         href={project.url}
                         target="_blank"
@@ -227,6 +228,25 @@ export default function Projects() {
                           />
                         </svg>
                       </a>
+                      <Link
+                        href={`/my-work/${project.slug}`}
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-text-secondary hover:text-gold transition-colors group/case"
+                      >
+                        View Case Study
+                        <svg
+                          className="w-4 h-4 transition-transform duration-200 group-hover/case:translate-x-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"
+                          />
+                        </svg>
+                      </Link>
                     </div>
                   </div>
                 </motion.article>
