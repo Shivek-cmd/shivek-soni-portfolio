@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { serviceCategories } from "@/data/serviceCategories";
 
 export default function Services() {
@@ -59,12 +60,14 @@ export default function Services() {
               >
                 {/* Image area */}
                 <div className="relative w-full h-48 overflow-hidden bg-gradient-to-b from-surface/80 to-card/50">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={service.image}
                     alt={service.title}
-                    className="w-full h-full object-contain p-6 transition-transform duration-500 group-hover:scale-105"
+                    width={800}
+                    height={600}
+                    className="w-full h-full object-cover p-6 transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />

@@ -3,8 +3,6 @@
 import { useState } from "react";
 import type { BlogCategory } from "@/data/categories";
 import type { BlogPostMeta } from "@/lib/blog";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/blog/Breadcrumb";
 import CategoryFilter from "@/components/blog/CategoryFilter";
 import BlogCard from "@/components/blog/BlogCard";
@@ -24,9 +22,7 @@ export default function CategoryPageClient({
   const paginated = posts.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE);
 
   return (
-    <>
-      <Navbar />
-      <main className="min-h-screen pt-24 pb-20 px-6 lg:px-8">
+    <main className="min-h-screen pt-24 pb-20 px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <Breadcrumb
             items={[
@@ -96,8 +92,6 @@ export default function CategoryPageClient({
             </nav>
           )}
         </div>
-      </main>
-      <Footer />
-    </>
+    </main>
   );
 }

@@ -4,8 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/lib/blog";
 import { siteConfig } from "@/data/siteConfig";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/blog/Breadcrumb";
 import MdxContent from "@/components/blog/MdxContent";
 import AuthorCard from "@/components/blog/AuthorCard";
@@ -138,7 +136,6 @@ export default async function BlogPostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <Navbar />
       <main className="min-h-screen pt-24 pb-20 px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <Breadcrumb
@@ -225,7 +222,6 @@ export default async function BlogPostPage({
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

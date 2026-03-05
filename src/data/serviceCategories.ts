@@ -43,7 +43,7 @@ export const serviceCategories: ServiceCategory[] = [
     description:
       "Custom CRM architectures that mirror your exact sales process. From first touch to closed deal, every pipeline stage is mapped, automated, and optimized so your team closes faster and nothing falls through the cracks.",
     icon: "📊",
-    image: "/services/crm-pipeline.svg",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
     color: "#C8A55C",
     highlights: [
       "Custom multi-pipeline design",
@@ -159,7 +159,7 @@ export const serviceCategories: ServiceCategory[] = [
     description:
       "Every page is engineered for conversion — from multi-step funnels and landing pages to full business websites, blogs, and e-commerce stores. Built natively in GoHighLevel for speed, tracking, and seamless automation.",
     icon: "🚀",
-    image: "/services/funnels-websites.svg",
+    image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=600&fit=crop",
     color: "#C8A55C",
     highlights: [
       "Conversion-optimized funnels",
@@ -275,7 +275,7 @@ export const serviceCategories: ServiceCategory[] = [
     description:
       "From multi-branch workflows and behavioral triggers to AI-powered chatbots and content generation — every repetitive task in your business gets automated with precision, intelligence, and zero manual intervention.",
     icon: "🤖",
-    image: "/services/ai-tools.svg",
+    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=600&fit=crop",
     color: "#C8A55C",
     highlights: [
       "AI chatbots & conversation AI",
@@ -391,7 +391,7 @@ export const serviceCategories: ServiceCategory[] = [
     description:
       "Unified messaging across SMS, email, WhatsApp, social media DMs, voice calls, and live chat. Every conversation lives in one place, every channel is automated, and no message goes unanswered.",
     icon: "💬",
-    image: "/services/messaging.svg",
+    image: "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=800&h=600&fit=crop",
     color: "#C8A55C",
     highlights: [
       "Omni-channel messaging hub",
@@ -507,7 +507,7 @@ export const serviceCategories: ServiceCategory[] = [
     description:
       "Automated review generation that builds your online reputation, combined with sophisticated appointment scheduling that eliminates no-shows and fills your calendar. Social proof meets smart scheduling.",
     icon: "⭐",
-    image: "/services/reputation.svg",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
     color: "#C8A55C",
     highlights: [
       "Automated review generation",
@@ -623,7 +623,7 @@ export const serviceCategories: ServiceCategory[] = [
     description:
       "Launch your own branded SaaS platform on GoHighLevel, connect every tool in your tech stack with custom API integrations, build real-time reporting dashboards, and manage social media — all from one ecosystem.",
     icon: "🏢",
-    image: "/services/whitelabel-saas.svg",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=600&fit=crop",
     color: "#C8A55C",
     highlights: [
       "White-label SaaS platform builds",

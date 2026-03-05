@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { ServiceCategory } from "@/data/serviceCategories";
-import { siteConfig } from "@/data/siteConfig";
 
 interface Props {
   service: ServiceCategory;
@@ -17,29 +17,7 @@ export default function ServiceDetailClient({
 }: Props) {
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border">
-        <nav className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <Link
-              href="/"
-              className="text-sm text-text-secondary hover:text-gold transition-colors flex items-center gap-2"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back to Home
-            </Link>
-            <Link
-              href="/#contact"
-              className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2 text-sm font-semibold text-background hover:bg-gold-light transition-colors"
-            >
-              Get Started
-            </Link>
-          </div>
-        </nav>
-      </header>
-
-      <main className="pt-16">
+      <main className="pt-20">
         {/* Hero Section */}
         <section className="relative py-20 md:py-28 overflow-hidden">
           <div className="absolute inset-0 bg-surface/50" />
@@ -103,11 +81,14 @@ export default function ServiceDetailClient({
                 className="relative"
               >
                 <div className="relative rounded-2xl border border-border bg-card/50 p-8 overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={service.image}
                     alt={service.title}
-                    className="w-full h-64 md:h-80 object-contain"
+                    width={800}
+                    height={600}
+                    className="w-full h-64 md:h-80 object-cover"
+                    loading="lazy"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent pointer-events-none" />
                 </div>
@@ -375,25 +356,6 @@ export default function ServiceDetailClient({
           </div>
         </section>
 
-        {/* Footer */}
-        <footer className="border-t border-border py-8">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-text-muted">
-              &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
-            </p>
-            <div className="flex items-center gap-6">
-              <Link href="/" className="text-xs text-text-muted hover:text-gold transition-colors">
-                Home
-              </Link>
-              <Link href="/#services" className="text-xs text-text-muted hover:text-gold transition-colors">
-                All Services
-              </Link>
-              <Link href="/#contact" className="text-xs text-text-muted hover:text-gold transition-colors">
-                Contact
-              </Link>
-            </div>
-          </div>
-        </footer>
       </main>
     </>
   );

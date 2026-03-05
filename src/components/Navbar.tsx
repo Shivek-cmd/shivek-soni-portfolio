@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [activeSection, setActiveSection] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
@@ -20,22 +20,24 @@ export default function Navbar() {
   const isHomePage = pathname === "/";
 
   useEffect(() => {
-    if (!isHomePage) return;
-
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      const sections = navigation.map((item) => item.href.replace("#", ""));
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i]);
+      if (!isHomePage) return;
+      const sectionIds = navigation
+        .filter((item) => item.href.startsWith("#"))
+        .map((item) => item.href.replace("#", ""));
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sectionIds[i]);
         if (section) {
           const rect = section.getBoundingClientRect();
           if (rect.top <= 120) {
-            setActiveSection(sections[i]);
-            break;
+            setActiveSection(sectionIds[i]);
+            return;
           }
         }
       }
+      setActiveSection("");
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -80,6 +82,20 @@ export default function Navbar() {
     }, 200);
   };
 
+  const isPageLink = (href: string) => href.startsWith("/");
+
+  const isNavActive = (item: { label: string; href: string }) => {
+    if (isPageLink(item.href)) {
+      if (item.href === "/blog") return pathname.startsWith("/blog");
+      return pathname === item.href;
+    }
+    const sectionId = item.href.replace("#", "");
+    if (sectionId === "services") {
+      return (isHomePage && activeSection === "services") || (!isHomePage && pathname.startsWith("/services"));
+    }
+    return isHomePage && activeSection === sectionId;
+  };
+
   return (
     <>
       <motion.header
@@ -92,29 +108,16 @@ export default function Navbar() {
       >
         <nav className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
-            {/* Logo */}
-            {isHomePage ? (
-              <a
-                href="#home"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick("#home");
-                }}
-                className="font-heading text-xl font-bold tracking-tight"
-              >
-                <Logo className="h-9 w-auto" />
-              </a>
-            ) : (
-              <Link href="/" className="font-heading text-xl font-bold tracking-tight">
-                <Logo className="h-9 w-auto" />
-              </Link>
-            )}
+            {/* Logo — always links to homepage */}
+            <Link href="/" className="cursor-pointer flex-shrink-0">
+              <Logo className="h-12 w-auto" />
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-1">
               {navigation.map((item) => {
+                const active = isNavActive(item);
                 const sectionId = item.href.replace("#", "");
-                const isActive = isHomePage && activeSection === sectionId;
 
                 if (sectionId === "services") {
                   return (
@@ -132,7 +135,7 @@ export default function Navbar() {
                           handleNavClick(item.href);
                         }}
                         className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-full inline-flex items-center gap-1 ${
-                          isActive || (!isHomePage && pathname.startsWith("/services"))
+                          active
                             ? "text-gold"
                             : "text-text-secondary hover:text-text-primary"
                         }`}
@@ -153,7 +156,7 @@ export default function Navbar() {
                             d="M19 9l-7 7-7-7"
                           />
                         </svg>
-                        {isActive && (
+                        {active && (
                           <motion.div
                             layoutId="activeNav"
                             className="absolute inset-0 rounded-full bg-gold/10 border border-gold/20"
@@ -198,6 +201,31 @@ export default function Navbar() {
                   );
                 }
 
+                // Page links (About, Blog, Contact)
+                if (isPageLink(item.href)) {
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-full ${
+                        active
+                          ? "text-gold"
+                          : "text-text-secondary hover:text-text-primary"
+                      }`}
+                    >
+                      {item.label}
+                      {active && (
+                        <motion.div
+                          layoutId="activeNav"
+                          className="absolute inset-0 rounded-full bg-gold/10 border border-gold/20"
+                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                    </Link>
+                  );
+                }
+
+                // Section links (Process, My Work)
                 return (
                   <a
                     key={item.href}
@@ -209,13 +237,13 @@ export default function Navbar() {
                       }
                     }}
                     className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-full ${
-                      isActive
+                      active
                         ? "text-gold"
                         : "text-text-secondary hover:text-text-primary"
                     }`}
                   >
                     {item.label}
-                    {isActive && (
+                    {active && (
                       <motion.div
                         layoutId="activeNav"
                         className="absolute inset-0 rounded-full bg-gold/10 border border-gold/20"
@@ -231,38 +259,13 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* Blog Link - Desktop */}
-            <Link
-              href="/blog"
-              className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-full ${
-                pathname.startsWith("/blog")
-                  ? "text-gold"
-                  : "text-text-secondary hover:text-text-primary"
-              }`}
-            >
-              Blog
-              {pathname.startsWith("/blog") && (
-                <motion.div
-                  layoutId="activeNav"
-                  className="absolute inset-0 rounded-full bg-gold/10 border border-gold/20"
-                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                />
-              )}
-            </Link>
-
             {/* CTA Button - Desktop */}
-            <a
-              href={isHomePage ? "#contact" : "/#contact"}
-              onClick={(e) => {
-                if (isHomePage) {
-                  e.preventDefault();
-                  handleNavClick("#contact");
-                }
-              }}
+            <Link
+              href="/contact"
               className="hidden lg:inline-flex items-center gap-2 rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-background transition-all duration-200 hover:bg-gold-light hover:shadow-lg hover:shadow-gold/20"
             >
               Let&apos;s Talk
-            </a>
+            </Link>
 
             {/* Mobile Menu Button */}
             <button
@@ -326,7 +329,7 @@ export default function Navbar() {
                         transition={{ delay: 0.1 + index * 0.05 }}
                         onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
                         className={`text-2xl font-heading font-semibold transition-colors inline-flex items-center gap-2 ${
-                          (isHomePage && activeSection === sectionId) || (!isHomePage && pathname.startsWith("/services"))
+                          isNavActive(item)
                             ? "text-gold"
                             : "text-text-secondary hover:text-text-primary"
                         }`}
@@ -381,6 +384,31 @@ export default function Navbar() {
                   );
                 }
 
+                // Page links in mobile
+                if (isPageLink(item.href)) {
+                  return (
+                    <motion.div
+                      key={item.href}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 + index * 0.05 }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`text-2xl font-heading font-semibold transition-colors ${
+                          isNavActive(item)
+                            ? "text-gold"
+                            : "text-text-secondary hover:text-text-primary"
+                        }`}
+                      >
+                        {item.label}
+                      </Link>
+                    </motion.div>
+                  );
+                }
+
+                // Section links in mobile
                 return (
                   <motion.a
                     key={item.href}
@@ -397,7 +425,7 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 + index * 0.05 }}
                     className={`text-2xl font-heading font-semibold transition-colors ${
-                      isHomePage && activeSection === item.href.replace("#", "")
+                      isNavActive(item)
                         ? "text-gold"
                         : "text-text-secondary hover:text-text-primary"
                     }`}
@@ -412,34 +440,13 @@ export default function Navbar() {
                 transition={{ delay: 0.45 }}
               >
                 <Link
-                  href="/blog"
+                  href="/contact"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`text-2xl font-heading font-semibold transition-colors ${
-                    pathname.startsWith("/blog")
-                      ? "text-gold"
-                      : "text-text-secondary hover:text-text-primary"
-                  }`}
+                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3 text-lg font-semibold text-background"
                 >
-                  Blog
+                  Let&apos;s Talk
                 </Link>
               </motion.div>
-              <motion.a
-                href={isHomePage ? "#contact" : "/#contact"}
-                onClick={(e) => {
-                  if (isHomePage) {
-                    e.preventDefault();
-                    handleNavClick("#contact");
-                  } else {
-                    setIsMobileMenuOpen(false);
-                  }
-                }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="mt-4 inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3 text-lg font-semibold text-background"
-              >
-                Let&apos;s Talk
-              </motion.a>
             </motion.nav>
           </motion.div>
         )}

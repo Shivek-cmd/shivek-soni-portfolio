@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 import type { BlogPostMeta } from "@/lib/blog";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import BlogHero from "@/components/blog/BlogHero";
 import CategoryFilter from "@/components/blog/CategoryFilter";
 import BlogCard from "@/components/blog/BlogCard";
@@ -16,9 +14,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPostMeta[] }) {
   const paginated = posts.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE);
 
   return (
-    <>
-      <Navbar />
-      <main className="min-h-screen">
+    <main className="min-h-screen">
         <BlogHero />
         <section className="px-6 lg:px-8 pb-20">
           <div className="mx-auto max-w-7xl">
@@ -67,8 +63,6 @@ export default function BlogIndexClient({ posts }: { posts: BlogPostMeta[] }) {
             )}
           </div>
         </section>
-      </main>
-      <Footer />
-    </>
+    </main>
   );
 }
