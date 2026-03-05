@@ -64,7 +64,16 @@ export const metadata: Metadata = {
     canonical: siteConfig.url,
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  other: {
+    "geo.region": "US",
+    "geo.country": "US",
+    "content-language": "en-US",
   },
 };
 
@@ -123,7 +132,10 @@ export default function RootLayout({
                 "@type": "Person",
                 name: siteConfig.name,
               },
-              areaServed: "Worldwide",
+              areaServed: {
+                "@type": "Country",
+                name: "United States",
+              },
               serviceType: [
                 "GoHighLevel CRM Setup",
                 "Workflow Automation",

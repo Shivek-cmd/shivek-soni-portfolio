@@ -2,11 +2,11 @@ export const siteConfig = {
   name: "Automate with Level",
   title: "GoHighLevel Expert & Digital Automation Specialist",
   description:
-    "Shivek Soni is a certified GoHighLevel expert helping businesses automate their sales, marketing, and operations with custom CRM solutions, AI-powered workflows, and white-label SaaS builds.",
-  url: "https://shiveksoni.com", // PLACEHOLDER: Replace with actual domain
-  email: "hello@shiveksoni.com", // PLACEHOLDER: Replace with actual email
-  location: "New Delhi, India", // PLACEHOLDER: Replace with actual city/location
-  phone: "+91 XXXX XXXX XX", // PLACEHOLDER: Replace with actual phone
+    "Automate with Level is your go-to GoHighLevel expert for USA businesses. We build custom CRM pipelines, AI-powered workflows, funnels, chatbots, and white-label SaaS solutions that scale your business on autopilot.",
+  url: "https://automatewithlevel.com", // PLACEHOLDER: Replace with actual domain
+  email: "hello@automatewithlevel.com", // PLACEHOLDER: Replace with actual email
+  location: "United States", // Targeting USA businesses
+  phone: "+1 (XXX) XXX-XXXX", // PLACEHOLDER: Replace with actual US phone
   social: {
     linkedin: "https://www.linkedin.com/in/shivek-soni-b860ab170/",
     twitter: "https://x.com/shiveksoni", // PLACEHOLDER: Replace with actual Twitter/X
@@ -15,20 +15,25 @@ export const siteConfig = {
   },
   keywords: [
     "GoHighLevel expert",
+    "GoHighLevel expert USA",
     "GHL automation specialist",
-    "GoHighLevel consultant",
-    "CRM automation",
+    "GoHighLevel consultant United States",
+    "CRM automation USA",
     "GoHighLevel funnel builder",
-    "white-label SaaS",
+    "white-label SaaS GoHighLevel",
     "GHL workflow automation",
     "GoHighLevel AI tools",
-    "marketing automation expert",
+    "marketing automation expert USA",
     "GoHighLevel developer",
     "sales pipeline automation",
     "GoHighLevel integrations",
-    "digital automation specialist",
+    "digital automation specialist USA",
     "GHL agency solutions",
     "GoHighLevel CRM setup",
+    "GoHighLevel chatbot builder",
+    "GHL expert for small business",
+    "GoHighLevel automation services",
+    "hire GoHighLevel expert",
   ],
 };
 

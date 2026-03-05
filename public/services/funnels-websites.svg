@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" fill="none">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E0C682"/>
+      <stop offset="100%" stop-color="#A8883E"/>
+    </linearGradient>
+  </defs>
+  <!-- Funnel shape -->
+  <path d="M100 40 L300 40 L260 100 L240 140 L220 200 L180 200 L160 140 L140 100 Z" fill="#161619" stroke="url(#g1)" stroke-width="1.5"/>
+  <!-- Funnel stages -->
+  <line x1="130" y1="80" x2="270" y2="80" stroke="url(#g1)" stroke-width="1" opacity="0.3"/>
+  <line x1="150" y1="120" x2="250" y2="120" stroke="url(#g1)" stroke-width="1" opacity="0.3"/>
+  <line x1="170" y1="160" x2="230" y2="160" stroke="url(#g1)" stroke-width="1" opacity="0.3"/>
+  <!-- Stage fills -->
+  <rect x="140" y="45" width="120" height="30" rx="4" fill="url(#g1)" opacity="0.15"/>
+  <rect x="150" y="85" width="100" height="30" rx="4" fill="url(#g1)" opacity="0.25"/>
+  <rect x="160" y="125" width="80" height="30" rx="4" fill="url(#g1)" opacity="0.4"/>
+  <rect x="175" y="165" width="50" height="30" rx="4" fill="url(#g1)" opacity="0.6"/>
+  <!-- People dots entering funnel -->
+  <circle cx="150" cy="25" r="4" fill="url(#g1)" opacity="0.5"/>
+  <circle cx="175" cy="20" r="4" fill="url(#g1)" opacity="0.6"/>
+  <circle cx="200" cy="18" r="4" fill="url(#g1)" opacity="0.7"/>
+  <circle cx="225" cy="20" r="4" fill="url(#g1)" opacity="0.6"/>
+  <circle cx="250" cy="25" r="4" fill="url(#g1)" opacity="0.5"/>
+  <!-- Conversion arrow at bottom -->
+  <path d="M200 205 L200 225" stroke="url(#g1)" stroke-width="2" opacity="0.7"/>
+  <polygon points="193,222 200,232 207,222" fill="url(#g1)" opacity="0.7"/>
+  <!-- Labels -->
+  <text x="200" y="64" text-anchor="middle" fill="#9CA3AF" font-family="sans-serif" font-size="9">Visitors</text>
+  <text x="200" y="104" text-anchor="middle" fill="#9CA3AF" font-family="sans-serif" font-size="9">Leads</text>
+  <text x="200" y="144" text-anchor="middle" fill="#9CA3AF" font-family="sans-serif" font-size="9">Qualified</text>
+  <text x="200" y="184" text-anchor="middle" fill="#FAFAF9" font-family="sans-serif" font-size="9">Customers</text>
+</svg>

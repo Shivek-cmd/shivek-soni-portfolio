@@ -4,6 +4,7 @@ export interface Service {
   description: string;
   features: string[];
   icon: string;
+  image: string;
 }
 
 export const serviceCategories: Service[] = [
@@ -20,6 +21,7 @@ export const serviceCategories: Service[] = [
       "Team permissions & lead assignment rules",
     ],
     icon: "📊",
+    image: "/services/crm-pipeline.svg",
   },
   {
     id: "workflow-automation",
@@ -35,6 +37,7 @@ export const serviceCategories: Service[] = [
       "Workflow AI for smart decision routing",
     ],
     icon: "⚡",
+    image: "/services/workflow-automation.svg",
   },
   {
     id: "funnels-websites",
@@ -50,6 +53,7 @@ export const serviceCategories: Service[] = [
       "Form & survey builders with conditional logic",
     ],
     icon: "🚀",
+    image: "/services/funnels-websites.svg",
   },
   {
     id: "ai-tools",
@@ -65,6 +69,7 @@ export const serviceCategories: Service[] = [
       "AI Agent configuration with intent recognition",
     ],
     icon: "🤖",
+    image: "/services/ai-tools.svg",
   },
   {
     id: "messaging",
@@ -80,6 +85,7 @@ export const serviceCategories: Service[] = [
       "Unified conversation inbox management",
     ],
     icon: "💬",
+    image: "/services/messaging.svg",
   },
   {
     id: "voice-phone",
@@ -95,6 +101,7 @@ export const serviceCategories: Service[] = [
       "Missed call text-back automation",
     ],
     icon: "📞",
+    image: "/services/voice-phone.svg",
   },
   {
     id: "reputation",
@@ -110,6 +117,7 @@ export const serviceCategories: Service[] = [
       "Reputation dashboard & analytics",
     ],
     icon: "⭐",
+    image: "/services/reputation.svg",
   },
   {
     id: "calendars",
@@ -125,6 +133,7 @@ export const serviceCategories: Service[] = [
       "Embedded booking widgets for funnels & sites",
     ],
     icon: "📅",
+    image: "/services/calendars.svg",
   },
   {
     id: "reporting",
@@ -140,6 +149,7 @@ export const serviceCategories: Service[] = [
       "Call & conversation analytics",
     ],
     icon: "📈",
+    image: "/services/reporting.svg",
   },
   {
     id: "whitelabel-saas",
@@ -155,6 +165,7 @@ export const serviceCategories: Service[] = [
       "Agency dashboard & client management",
     ],
     icon: "🏢",
+    image: "/services/whitelabel-saas.svg",
   },
   {
     id: "integrations",
@@ -170,6 +181,7 @@ export const serviceCategories: Service[] = [
       "Custom app marketplace integrations",
     ],
     icon: "🔗",
+    image: "/services/integrations.svg",
   },
   {
     id: "social-media",
@@ -185,5 +197,6 @@ export const serviceCategories: Service[] = [
       "GMB post management & optimization",
     ],
     icon: "📱",
+    image: "/services/social-media.svg",
   },
 ];

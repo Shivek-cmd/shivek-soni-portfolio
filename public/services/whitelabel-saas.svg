@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" fill="none">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E0C682"/>
+      <stop offset="100%" stop-color="#A8883E"/>
+    </linearGradient>
+  </defs>
+  <!-- Main platform window -->
+  <rect x="100" y="20" width="200" height="145" rx="12" fill="#161619" stroke="url(#g1)" stroke-width="1.5"/>
+  <rect x="100" y="20" width="200" height="30" rx="12" fill="url(#g1)" opacity="0.12"/>
+  <!-- Window controls -->
+  <circle cx="118" cy="35" r="4" fill="url(#g1)" opacity="0.4"/>
+  <circle cx="132" cy="35" r="4" fill="url(#g1)" opacity="0.3"/>
+  <circle cx="146" cy="35" r="4" fill="url(#g1)" opacity="0.2"/>
+  <!-- Brand logo placeholder -->
+  <rect x="125" y="60" width="50" height="12" rx="4" fill="url(#g1)" opacity="0.4"/>
+  <text x="150" y="69" text-anchor="middle" fill="#0E0E11" font-family="sans-serif" font-size="7" font-weight="bold">YOUR BRAND</text>
+  <!-- Dashboard content -->
+  <rect x="115" y="82" width="75" height="30" rx="5" fill="url(#g1)" opacity="0.08"/>
+  <rect x="200" y="82" width="85" height="30" rx="5" fill="url(#g1)" opacity="0.06"/>
+  <rect x="115" y="120" width="170" height="8" rx="3" fill="url(#g1)" opacity="0.1"/>
+  <rect x="115" y="135" width="140" height="8" rx="3" fill="url(#g1)" opacity="0.07"/>
+  <!-- Sub-account cards -->
+  <rect x="40" y="140" width="90" height="80" rx="10" fill="#161619" stroke="url(#g1)" stroke-width="1" opacity="0.7"/>
+  <circle cx="85" cy="160" r="10" fill="url(#g1)" opacity="0.2"/>
+  <text x="85" y="164" text-anchor="middle" fill="url(#g1)" font-family="sans-serif" font-size="8" opacity="0.7">Client A</text>
+  <rect x="55" y="180" width="60" height="5" rx="2" fill="url(#g1)" opacity="0.15"/>
+  <rect x="55" y="190" width="45" height="5" rx="2" fill="url(#g1)" opacity="0.1"/>
+  <rect x="55" y="200" width="50" height="5" rx="2" fill="url(#g1)" opacity="0.08"/>
+  <rect x="270" y="140" width="90" height="80" rx="10" fill="#161619" stroke="url(#g1)" stroke-width="1" opacity="0.7"/>
+  <circle cx="315" cy="160" r="10" fill="url(#g1)" opacity="0.2"/>
+  <text x="315" y="164" text-anchor="middle" fill="url(#g1)" font-family="sans-serif" font-size="8" opacity="0.7">Client B</text>
+  <rect x="285" y="180" width="60" height="5" rx="2" fill="url(#g1)" opacity="0.15"/>
+  <rect x="285" y="190" width="45" height="5" rx="2" fill="url(#g1)" opacity="0.1"/>
+  <rect x="285" y="200" width="50" height="5" rx="2" fill="url(#g1)" opacity="0.08"/>
+  <!-- Connecting lines -->
+  <line x1="130" y1="165" x2="152" y2="155" stroke="url(#g1)" stroke-width="1" opacity="0.3" stroke-dasharray="3 3"/>
+  <line x1="270" y1="165" x2="248" y2="155" stroke="url(#g1)" stroke-width="1" opacity="0.3" stroke-dasharray="3 3"/>
+</svg>

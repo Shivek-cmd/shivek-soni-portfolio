@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" fill="none">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E0C682"/>
+      <stop offset="100%" stop-color="#A8883E"/>
+    </linearGradient>
+  </defs>
+  <!-- Content calendar frame -->
+  <rect x="120" y="15" width="160" height="210" rx="14" fill="#161619" stroke="url(#g1)" stroke-width="1.5"/>
+  <!-- Screen -->
+  <rect x="130" y="35" width="140" height="170" rx="6" fill="#0E0E11"/>
+  <!-- Post preview 1 -->
+  <rect x="140" y="45" width="120" height="65" rx="6" fill="url(#g1)" opacity="0.08"/>
+  <rect x="148" y="52" width="40" height="40" rx="4" fill="url(#g1)" opacity="0.15"/>
+  <rect x="195" y="55" width="55" height="5" rx="2" fill="url(#g1)" opacity="0.3"/>
+  <rect x="195" y="65" width="45" height="4" rx="2" fill="#9CA3AF" opacity="0.2"/>
+  <rect x="195" y="74" width="50" height="4" rx="2" fill="#9CA3AF" opacity="0.15"/>
+  <rect x="195" y="83" width="35" height="4" rx="2" fill="#9CA3AF" opacity="0.1"/>
+  <!-- Post preview 2 -->
+  <rect x="140" y="118" width="120" height="40" rx="6" fill="url(#g1)" opacity="0.06"/>
+  <rect x="148" y="125" width="25" height="25" rx="4" fill="url(#g1)" opacity="0.12"/>
+  <rect x="180" y="128" width="65" height="4" rx="2" fill="url(#g1)" opacity="0.25"/>
+  <rect x="180" y="137" width="50" height="4" rx="2" fill="#9CA3AF" opacity="0.15"/>
+  <!-- Engagement metrics -->
+  <rect x="140" y="166" width="120" height="30" rx="5" fill="url(#g1)" opacity="0.05"/>
+  <text x="165" y="184" text-anchor="middle" fill="url(#g1)" font-family="sans-serif" font-size="9" opacity="0.6">2.4K</text>
+  <text x="215" y="184" text-anchor="middle" fill="url(#g1)" font-family="sans-serif" font-size="9" opacity="0.6">847</text>
+  <text x="245" y="184" text-anchor="middle" fill="url(#g1)" font-family="sans-serif" font-size="9" opacity="0.6">156</text>
+  <!-- Platform icons - left side -->
+  <circle cx="60" cy="60" r="20" fill="#161619" stroke="url(#g1)" stroke-width="1" opacity="0.7"/>
+  <text x="60" y="64" text-anchor="middle" fill="url(#g1)" font-family="sans-serif" font-size="8" opacity="0.6">FB</text>
+  <line x1="80" y1="60" x2="120" y2="75" stroke="url(#g1)" stroke-width="1" opacity="0.3" stroke-dasharray="3 3"/>
+  <circle cx="55" cy="130" r="20" fill="#161619" stroke="url(#g1)" stroke-width="1" opacity="0.7"/>
+  <text x="55" y="134" text-anchor="middle" fill="url(#g1)" font-family="sans-serif" font-size="8" opacity="0.6">IG</text>
+  <line x1="75" y1="130" x2="120" y2="125" stroke="url(#g1)" stroke-width="1" opacity="0.3" stroke-dasharray="3 3"/>
+  <!-- Platform icons - right side -->
+  <circle cx="340" cy="60" r="20" fill="#161619" stroke="url(#g1)" stroke-width="1" opacity="0.7"/>
+  <text x="340" y="64" text-anchor="middle" fill="url(#g1)" font-family="sans-serif" font-size="8" opacity="0.6">LI</text>
+  <line x1="320" y1="60" x2="280" y2="75" stroke="url(#g1)" stroke-width="1" opacity="0.3" stroke-dasharray="3 3"/>
+  <circle cx="345" cy="130" r="20" fill="#161619" stroke="url(#g1)" stroke-width="1" opacity="0.7"/>
+  <text x="345" y="127" text-anchor="middle" fill="url(#g1)" font-family="sans-serif" font-size="7" opacity="0.6">Google</text>
+  <text x="345" y="137" text-anchor="middle" fill="url(#g1)" font-family="sans-serif" font-size="7" opacity="0.6">Biz</text>
+  <line x1="325" y1="130" x2="280" y2="125" stroke="url(#g1)" stroke-width="1" opacity="0.3" stroke-dasharray="3 3"/>
+</svg>

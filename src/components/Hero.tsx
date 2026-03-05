@@ -40,11 +40,10 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight"
+            className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-tight"
           >
-            <span className="block text-text-primary">GoHighLevel Expert.</span>
-            <span className="block text-text-primary mt-2">I Build Automation</span>
-            <span className="block text-gradient-gold mt-2">Systems That Scale.</span>
+            <span className="block text-text-primary">Your GoHighLevel Expert</span>
+            <span className="block text-gradient-gold mt-2">for Business Automation</span>
           </motion.h1>
 
           {/* Subheading */}
@@ -54,8 +53,10 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-8 max-w-2xl text-lg md:text-xl text-text-secondary leading-relaxed"
           >
-            CRM pipelines, AI workflows, funnels, chatbots and more —
-            everything GoHighLevel offers, built right.
+            I help USA businesses grow faster with GoHighLevel — building custom CRM
+            pipelines, AI-powered workflows, high-converting funnels, smart chatbots,
+            and complete automation systems. From lead capture to customer follow-up,
+            every part of your business runs smoother, saves time, and drives more revenue.
           </motion.p>
 
           {/* CTA Buttons */}

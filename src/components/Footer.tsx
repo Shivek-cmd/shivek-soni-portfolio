@@ -1,6 +1,9 @@
 "use client";
 
 import { siteConfig, navigation } from "@/data/siteConfig";
+import { serviceCategories } from "@/data/serviceCategories";
+import Logo from "@/components/Logo";
+import Link from "next/link";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -18,9 +21,8 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-12">
           {/* Brand */}
           <div>
-            <a href="#home" className="font-heading text-xl font-bold">
-              <span className="text-gradient-gold">Automate</span>
-              <span className="text-text-primary"> with Level</span>
+            <a href="#home" className="inline-block">
+              <Logo className="h-9 w-auto" />
             </a>
             <p className="mt-4 text-sm text-text-secondary leading-relaxed max-w-xs">
               GoHighLevel Expert &amp; Digital Automation Specialist. Building
@@ -73,28 +75,17 @@ export default function Footer() {
           {/* Services */}
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-widest text-text-muted mb-4">
-              Top Services
+              Services
             </h4>
             <ul className="space-y-3">
-              {[
-                "CRM & Pipeline Management",
-                "Workflow Automation",
-                "Funnel & Website Building",
-                "AI-Powered Tools",
-                "White-Label SaaS",
-                "API Integrations",
-              ].map((service) => (
-                <li key={service}>
-                  <a
-                    href="#services"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick("#services");
-                    }}
+              {serviceCategories.map((service) => (
+                <li key={service.id}>
+                  <Link
+                    href={`/services/${service.slug}`}
                     className="text-sm text-text-secondary hover:text-gold transition-colors"
                   >
-                    {service}
-                  </a>
+                    {service.shortTitle}
+                  </Link>
                 </li>
               ))}
             </ul>

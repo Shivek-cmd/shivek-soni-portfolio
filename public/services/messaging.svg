@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" fill="none">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E0C682"/>
+      <stop offset="100%" stop-color="#A8883E"/>
+    </linearGradient>
+  </defs>
+  <!-- Central phone/device -->
+  <rect x="155" y="30" width="90" height="180" rx="16" fill="#161619" stroke="url(#g1)" stroke-width="1.5"/>
+  <rect x="165" y="55" width="70" height="130" rx="4" fill="#0E0E11"/>
+  <!-- Chat messages on screen -->
+  <rect x="172" y="65" width="45" height="18" rx="8" fill="url(#g1)" opacity="0.3"/>
+  <rect x="192" y="90" width="38" height="18" rx="8" fill="url(#g1)" opacity="0.2"/>
+  <rect x="172" y="115" width="50" height="18" rx="8" fill="url(#g1)" opacity="0.35"/>
+  <rect x="185" y="140" width="42" height="18" rx="8" fill="url(#g1)" opacity="0.25"/>
+  <!-- SMS icon - left -->
+  <rect x="30" y="50" width="60" height="45" rx="10" fill="#161619" stroke="url(#g1)" stroke-width="1" opacity="0.7"/>
+  <text x="60" y="78" text-anchor="middle" fill="url(#g1)" font-family="sans-serif" font-size="11" opacity="0.7">SMS</text>
+  <line x1="90" y1="72" x2="155" y2="90" stroke="url(#g1)" stroke-width="1" opacity="0.3" stroke-dasharray="3 3"/>
+  <!-- Email icon - left bottom -->
+  <rect x="40" y="140" width="60" height="45" rx="10" fill="#161619" stroke="url(#g1)" stroke-width="1" opacity="0.7"/>
+  <path d="M52 155 L70 168 L88 155" stroke="url(#g1)" stroke-width="1.2" fill="none" opacity="0.6"/>
+  <line x1="100" y1="162" x2="155" y2="140" stroke="url(#g1)" stroke-width="1" opacity="0.3" stroke-dasharray="3 3"/>
+  <!-- WhatsApp icon - right -->
+  <circle cx="340" cy="72" r="25" fill="#161619" stroke="url(#g1)" stroke-width="1" opacity="0.7"/>
+  <text x="340" y="77" text-anchor="middle" fill="url(#g1)" font-family="sans-serif" font-size="10" opacity="0.7">WA</text>
+  <line x1="315" y1="72" x2="245" y2="90" stroke="url(#g1)" stroke-width="1" opacity="0.3" stroke-dasharray="3 3"/>
+  <!-- Social icon - right bottom -->
+  <circle cx="330" cy="162" r="25" fill="#161619" stroke="url(#g1)" stroke-width="1" opacity="0.7"/>
+  <text x="330" y="158" text-anchor="middle" fill="url(#g1)" font-family="sans-serif" font-size="8" opacity="0.7">Social</text>
+  <text x="330" y="170" text-anchor="middle" fill="url(#g1)" font-family="sans-serif" font-size="8" opacity="0.7">DMs</text>
+  <line x1="305" y1="162" x2="245" y2="140" stroke="url(#g1)" stroke-width="1" opacity="0.3" stroke-dasharray="3 3"/>
+</svg>
