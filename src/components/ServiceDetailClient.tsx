@@ -326,13 +326,20 @@ export default function ServiceDetailClient({
               transition={{ duration: 0.6 }}
               className="text-center mb-12"
             >
-              <h2 className="font-heading text-2xl md:text-3xl font-bold">
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <div className="h-px w-8 bg-gold" />
+                <span className="text-sm font-medium uppercase tracking-widest text-gold">
+                  More Services
+                </span>
+                <div className="h-px w-8 bg-gold" />
+              </div>
+              <h2 className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold">
                 Explore Other{" "}
                 <span className="text-gradient-gold">Services</span>
               </h2>
             </motion.div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {otherServices.map((other, index) => (
                 <motion.div
                   key={other.id}
@@ -343,12 +350,48 @@ export default function ServiceDetailClient({
                 >
                   <Link
                     href={`/services/${other.slug}`}
-                    className="group flex flex-col items-center text-center p-5 rounded-xl border border-border bg-card/30 hover:border-gold/20 hover:bg-card/60 transition-all duration-300"
+                    className="group relative flex flex-col h-full rounded-2xl border border-border bg-card/50 hover:border-gold/30 hover:bg-card hover:shadow-xl hover:shadow-gold/5 transition-all duration-500 overflow-hidden"
                   >
-                    <span className="text-2xl mb-2">{other.icon}</span>
-                    <span className="text-sm font-semibold text-text-primary group-hover:text-gold transition-colors">
-                      {other.shortTitle}
-                    </span>
+                    {/* Image area */}
+                    <div className="relative w-full h-44 overflow-hidden bg-gradient-to-b from-surface/80 to-card/50">
+                      <Image
+                        src={other.image}
+                        alt={other.title}
+                        width={800}
+                        height={600}
+                        className="w-full h-full object-cover p-4 transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex flex-col flex-1 p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className="text-2xl" role="img" aria-label={other.title}>
+                          {other.icon}
+                        </span>
+                        <h3 className="text-lg font-bold text-text-primary group-hover:text-gold transition-colors duration-300">
+                          {other.shortTitle}
+                        </h3>
+                      </div>
+                      <p className="text-sm text-gold/80 font-medium mb-3 italic">
+                        {other.tagline}
+                      </p>
+                      <p className="text-sm text-text-secondary leading-relaxed mb-4 flex-1 line-clamp-3">
+                        {other.description}
+                      </p>
+                      <div className="flex items-center gap-2 text-sm font-semibold text-gold group-hover:gap-3 transition-all duration-300">
+                        Explore This Service
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </div>
+                    </div>
+
+                    {/* Hover border glow */}
+                    <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none border border-gold/20" />
                   </Link>
                 </motion.div>
               ))}

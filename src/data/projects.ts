@@ -1,96 +1,174 @@
 export interface Project {
   id: string;
-  title: string;
-  category: string;
+  client: string;
+  url: string;
+  industry: string;
   description: string;
-  results: string[];
+  features: string[];
   tags: string[];
-  image: string;
+  outcome: string;
+  image: string; // PLACEHOLDER: Replace with actual project screenshot
 }
+
+export const projectCategories = [
+  "All",
+  "Funnels",
+  "CRM & Automation",
+  "E-Commerce",
+  "Reputation",
+  "AI & Chatbots",
+  "Booking & Calendars",
+] as const;
 
 export const projects: Project[] = [
   {
-    id: "real-estate-crm",
-    title: "Real Estate Agency CRM Overhaul",
-    category: "CRM & Automation",
+    id: "mybusinessautomated",
+    client: "MyBusinessAutomated",
+    url: "https://mybusinessautomated.com",
+    industry: "Marketing Automation Agency",
     description:
-      "Complete GHL migration and automation build for a 20-agent real estate firm. Designed custom pipelines for buyer and seller journeys, automated follow-up sequences, and built a lead distribution system with round-robin assignment.",
-    results: [
-      "68% reduction in lead response time",
-      "3x increase in pipeline conversion rate",
-      "40+ hours saved per week across the team",
+      "Full GHL-powered business automation platform serving multiple businesses with done-for-you automation setups, AI-powered sales assistants, and multi-channel outreach — all managed through sub-account provisioning and a custom training hub.",
+    features: [
+      "CRM + pipeline management for lead tracking",
+      "Funnel & website builder implementation",
+      "AI-powered sales assistant and workflows",
+      "Automated review & reputation management",
+      "Multi-channel outreach automation",
+      "Done-for-you automation setup for clients",
+      "AI content generation integration",
+      "Training platform and knowledge hub",
+      "Email marketing sequences",
+      "Affiliate marketing system integration",
+      "Sub-account management for client onboarding",
     ],
-    tags: ["CRM", "Workflows", "Lead Distribution", "Pipelines"],
-    image: "/images/project-placeholder-1.jpg", // PLACEHOLDER: Replace with actual screenshot
+    tags: ["CRM & Automation", "AI & Chatbots", "Funnels", "Reputation"],
+    outcome:
+      "Platform now serves multiple businesses with fully automated sales and marketing systems",
+    image: "/images/project-mybusinessautomated.jpg",
   },
   {
-    id: "saas-whitelabel",
-    title: "White-Label SaaS Platform Launch",
-    category: "SaaS & Agency",
+    id: "trevoxa-wealth",
+    client: "Trevoxa Wealth",
+    url: "https://trevoxawealth.com",
+    industry: "Financial Services / Wealth Coordination",
     description:
-      "Built and launched a fully branded SaaS platform on GHL's white-label infrastructure for a marketing agency. Included custom onboarding flows, tiered pricing plans, snapshot templates, and automated client provisioning.",
-    results: [
-      "Launched with 50+ paying subscribers in month one",
-      "Automated 90% of client onboarding",
-      "Recurring revenue model generating $15K/mo",
+      "Fiduciary financial coordination platform with multi-language support, qualified intent routing that matches leads to verified professionals based on intake answers, and dedicated service lane funnels for Insurance, Investments, Estate, and Automation.",
+    features: [
+      "Full GHL website with multi-language support (EN/FR/ES)",
+      "Lead intake funnel (2-minute intake form \u2192 routing)",
+      "Qualified intent routing system",
+      "Service lane pages with dedicated funnels",
+      "Appointment booking system (Book Intro Call)",
+      "Event management and clinic registration flows",
+      "Blog setup with SEO structure",
+      "Contact and lead capture forms",
+      "Automated follow-up sequences post-intake",
+      "Privacy-first lead management workflows",
     ],
-    tags: ["White-Label", "SaaS", "Stripe", "Snapshots"],
-    image: "/images/project-placeholder-2.jpg", // PLACEHOLDER: Replace with actual screenshot
+    tags: ["Funnels", "CRM & Automation", "Booking & Calendars"],
+    outcome:
+      "Fiduciary platform connecting clients to verified professionals automatically",
+    image: "/images/project-trevoxa-wealth.jpg",
   },
   {
-    id: "ai-booking-system",
-    title: "AI-Powered Booking & Follow-Up System",
-    category: "AI & Scheduling",
+    id: "synexum-labs",
+    client: "Synexum Labs",
+    url: "https://synexumlabs.com",
+    industry: "Enterprise AI & Digital Transformation",
     description:
-      "Deployed Conversation AI as the first point of contact for a medical spa. The AI bot qualifies leads, answers FAQs, and books appointments directly into the GHL calendar — with automated reminders and no-show recovery workflows.",
-    results: [
-      "85% of inquiries handled without human intervention",
-      "42% increase in booked appointments",
-      "No-show rate dropped from 30% to 8%",
+      "Enterprise-grade B2B digital presence with multi-language site, dynamic case studies, lead magnet funnels for capability briefs, and automated qualification workflows for institutional clients \u2014 designed to position Synexum as an enterprise AI leader.",
+    features: [
+      "High-end GHL website for enterprise B2B positioning",
+      "Multi-language site (EN/FR/ES)",
+      "Case studies section with dynamic pages",
+      "Lead capture and discovery call booking funnel",
+      "Capability brief download (lead magnet funnel)",
+      "Contact and consultation request workflows",
+      "Automated email follow-up after form submission",
+      "Blog/insights section with SEO structure",
+      "CRM pipeline for enterprise lead management",
+      "Newsletter subscription and nurture sequences",
     ],
-    tags: ["Conversation AI", "Calendars", "Workflows", "SMS"],
-    image: "/images/project-placeholder-3.jpg", // PLACEHOLDER: Replace with actual screenshot
+    tags: ["Funnels", "CRM & Automation", "AI & Chatbots"],
+    outcome:
+      "Enterprise-grade digital presence with automated lead qualification for institutional clients",
+    image: "/images/project-synexum-labs.jpg",
   },
   {
-    id: "reputation-engine",
-    title: "Automated Reputation Engine",
-    category: "Reputation Management",
+    id: "mg-pressure-cleaning",
+    client: "MG Pressure Cleaning",
+    url: "https://mgpressurecleaning.com",
+    industry: "Home Services / Pressure Washing",
     description:
-      "Built a multi-location reputation management system for a dental group. Automated review requests post-appointment, set up AI-powered review responses, and created executive dashboards tracking ratings across all locations.",
-    results: [
-      "Google rating improved from 3.8 to 4.7 stars",
-      "200+ new 5-star reviews in 90 days",
-      "Negative review response time under 2 hours",
+      "Local service business with fully automated booking, review generation, and customer follow-up. Includes 10 service pages for local SEO, before/after gallery, and an SMS follow-up system that drives a 4.9-star Google reputation.",
+    features: [
+      "Full GHL website for local service business",
+      "Online booking/calendar system for service scheduling",
+      "Review generation automation system",
+      "4.9-star reputation management workflow",
+      "Before/after gallery showcase pages",
+      "Service area pages for local SEO",
+      "Multiple service pages (10 services)",
+      "Lead capture and quote request forms",
+      "Automated appointment reminders and confirmations",
+      "SMS follow-up after service completion",
+      "Contact and customer care workflows",
     ],
-    tags: ["Reviews", "AI Responses", "Multi-Location", "Dashboards"],
-    image: "/images/project-placeholder-4.jpg", // PLACEHOLDER: Replace with actual screenshot
+    tags: ["Reputation", "Booking & Calendars", "CRM & Automation"],
+    outcome:
+      "4.9 stars on Google, 300+ homes cleaned with fully automated booking and review system",
+    image: "/images/project-mg-pressure-cleaning.jpg",
   },
   {
-    id: "ecommerce-funnel",
-    title: "High-Converting E-Commerce Funnel",
-    category: "Funnels & Sales",
+    id: "happy-people-ai",
+    client: "Happy People AI",
+    url: "https://jgp.happypeopleai.com/job-guarantee-program",
+    industry: "Career Training / EdTech",
     description:
-      "Designed and built a multi-step sales funnel for a coaching business inside GHL. Included lead magnet opt-in, tripwire offer, core product upsell, and order bump — all with pixel tracking and automation sequences.",
-    results: [
-      "12.4% opt-in to purchase conversion rate",
-      "Average order value increased by 45%",
-      "Fully automated fulfillment & onboarding",
+      "High-converting enrollment funnel with scarcity elements (25 slots per cohort), free 1:1 consultation booking, transformation storytelling, and a full cohort management pipeline tracking applicants from enrollment through placement.",
+    features: [
+      "High-converting sales funnel (program landing page)",
+      "Scarcity/urgency elements (25 slots per cohort)",
+      "Free 1:1 consultation booking funnel",
+      "Lead capture and nurture sequence for applicants",
+      "Before/after transformation storytelling funnel",
+      "Testimonials and social proof automation",
+      "FAQ section with engagement tracking",
+      "Email + SMS follow-up after booking",
+      "Enrollment workflow automation",
+      "CRM pipeline for cohort management",
     ],
-    tags: ["Funnels", "E-Commerce", "Payments", "Upsells"],
-    image: "/images/project-placeholder-5.jpg", // PLACEHOLDER: Replace with actual screenshot
+    tags: ["Funnels", "Booking & Calendars", "CRM & Automation", "AI & Chatbots"],
+    outcome:
+      "Automated enrollment funnel with cohort management pipeline. 2,500+ placements",
+    image: "/images/project-happy-people-ai.jpg",
   },
   {
-    id: "multi-channel-outreach",
-    title: "Multi-Channel Outreach Machine",
-    category: "Messaging & Campaigns",
+    id: "all-cleaning-equipment",
+    client: "All Cleaning Equipment",
+    url: "https://allcleaningequipment.com",
+    industry: "E-Commerce / Cleaning Equipment",
     description:
-      "Architected a multi-channel outreach system combining SMS, email, voicemail drops, and Facebook DMs for a B2B lead generation agency. Every channel is sequenced with smart delays and behavioral triggers.",
-    results: [
-      "52% open rate on SMS campaigns",
-      "3.2x ROI on outreach campaigns",
-      "Booked 120+ qualified meetings in first quarter",
+      "Full GHL e-commerce marketplace for cleaning professionals with product catalog, instant order checkout, a \u2018Sell Equipment\u2019 listing funnel for private sellers, truck mount consultation booking, AI marketing tools, and Stripe-powered payments.",
+    features: [
+      "Full e-commerce store built inside GHL",
+      "Product catalog (chemicals, truck mounts, equipment)",
+      "Product detail pages with pricing and discount display",
+      "Instant Order system and checkout flow",
+      "Sell Equipment listing funnel for private sellers",
+      "Appointment/call booking for truck mount consultations",
+      "AI marketing tools for equipment sellers",
+      "Automated delivery and order follow-up sequences",
+      "Testimonials and social proof system",
+      "FAQ and customer support workflows",
+      "Login/signup member portal",
+      "Stripe payment integration",
+      "Social media integration across all platforms",
+      "Newsletter and re-engagement email sequences",
     ],
-    tags: ["SMS", "Email", "Voicemail", "Multi-Channel"],
-    image: "/images/project-placeholder-6.jpg", // PLACEHOLDER: Replace with actual screenshot
+    tags: ["E-Commerce", "Funnels", "Booking & Calendars", "AI & Chatbots"],
+    outcome:
+      "Full GHL e-commerce marketplace. 10,000+ businesses served, 5,000+ machines delivered",
+    image: "/images/project-all-cleaning-equipment.jpg",
   },
 ];
