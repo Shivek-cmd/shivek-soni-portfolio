@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Shivek Soni",
+  name: "Automate with Level",
   title: "GoHighLevel Expert & Digital Automation Specialist",
   description:
     "Shivek Soni is a certified GoHighLevel expert helping businesses automate their sales, marketing, and operations with custom CRM solutions, AI-powered workflows, and white-label SaaS builds.",
