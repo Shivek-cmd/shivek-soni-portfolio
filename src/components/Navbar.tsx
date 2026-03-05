@@ -1,0 +1,203 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { navigation } from "@/data/siteConfig";
+
+export default function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+
+      const sections = navigation.map((item) => item.href.replace("#", ""));
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i]);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= 120) {
+            setActiveSection(sections[i]);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleNavClick = (href: string) => {
+    setIsMobileMenuOpen(false);
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  return (
+    <>
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled ? "glass border-b border-border" : ""
+        }`}
+      >
+        <nav className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="flex h-20 items-center justify-between">
+            {/* Logo */}
+            <a
+              href="#home"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick("#home");
+              }}
+              className="font-heading text-xl font-bold tracking-tight"
+            >
+              <span className="text-gradient-gold">Shivek</span>
+              <span className="text-text-primary"> Soni</span>
+            </a>
+
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-1">
+              {navigation.map((item) => {
+                const sectionId = item.href.replace("#", "");
+                const isActive = activeSection === sectionId;
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(item.href);
+                    }}
+                    className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-full ${
+                      isActive
+                        ? "text-gold"
+                        : "text-text-secondary hover:text-text-primary"
+                    }`}
+                  >
+                    {item.label}
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeNav"
+                        className="absolute inset-0 rounded-full bg-gold/10 border border-gold/20"
+                        transition={{
+                          type: "spring",
+                          stiffness: 380,
+                          damping: 30,
+                        }}
+                      />
+                    )}
+                  </a>
+                );
+              })}
+            </div>
+
+            {/* CTA Button - Desktop */}
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick("#contact");
+              }}
+              className="hidden lg:inline-flex items-center gap-2 rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-background transition-all duration-200 hover:bg-gold-light hover:shadow-lg hover:shadow-gold/20"
+            >
+              Let&apos;s Talk
+            </a>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden relative z-50 flex h-10 w-10 items-center justify-center"
+              aria-label="Toggle menu"
+            >
+              <div className="flex flex-col gap-1.5">
+                <motion.span
+                  animate={
+                    isMobileMenuOpen
+                      ? { rotate: 45, y: 5 }
+                      : { rotate: 0, y: 0 }
+                  }
+                  className="block h-0.5 w-6 bg-text-primary"
+                />
+                <motion.span
+                  animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+                  className="block h-0.5 w-6 bg-text-primary"
+                />
+                <motion.span
+                  animate={
+                    isMobileMenuOpen
+                      ? { rotate: -45, y: -7 }
+                      : { rotate: 0, y: 0 }
+                  }
+                  className="block h-0.5 w-6 bg-text-primary"
+                />
+              </div>
+            </button>
+          </div>
+        </nav>
+      </motion.header>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl lg:hidden"
+          >
+            <motion.nav
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              className="flex flex-col items-center justify-center h-full gap-6"
+            >
+              {navigation.map((item, index) => (
+                <motion.a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.href);
+                  }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + index * 0.05 }}
+                  className={`text-2xl font-heading font-semibold transition-colors ${
+                    activeSection === item.href.replace("#", "")
+                      ? "text-gold"
+                      : "text-text-secondary hover:text-text-primary"
+                  }`}
+                >
+                  {item.label}
+                </motion.a>
+              ))}
+              <motion.a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick("#contact");
+                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="mt-4 inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3 text-lg font-semibold text-background"
+              >
+                Let&apos;s Talk
+              </motion.a>
+            </motion.nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
