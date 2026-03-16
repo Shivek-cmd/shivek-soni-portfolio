@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { navigation } from "@/data/siteConfig";
 import { serviceCategories } from "@/data/serviceCategories";
+import { niches } from "@/data/niches";
 import Logo from "@/components/Logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -14,8 +15,12 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+  const [isIndustriesOpen, setIsIndustriesOpen] = useState(false);
+  const [isMobileIndustriesOpen, setIsMobileIndustriesOpen] = useState(false);
   const servicesRef = useRef<HTMLDivElement>(null);
+  const industriesRef = useRef<HTMLDivElement>(null);
   const servicesTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const industriesTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
   const isHomePage = pathname === "/";
 
@@ -49,6 +54,9 @@ export default function Navbar() {
       if (servicesRef.current && !servicesRef.current.contains(e.target as Node)) {
         setIsServicesOpen(false);
       }
+      if (industriesRef.current && !industriesRef.current.contains(e.target as Node)) {
+        setIsIndustriesOpen(false);
+      }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -79,6 +87,20 @@ export default function Navbar() {
   const handleServicesMouseLeave = () => {
     servicesTimeoutRef.current = setTimeout(() => {
       setIsServicesOpen(false);
+    }, 200);
+  };
+
+  const handleIndustriesMouseEnter = () => {
+    if (industriesTimeoutRef.current) {
+      clearTimeout(industriesTimeoutRef.current);
+      industriesTimeoutRef.current = null;
+    }
+    setIsIndustriesOpen(true);
+  };
+
+  const handleIndustriesMouseLeave = () => {
+    industriesTimeoutRef.current = setTimeout(() => {
+      setIsIndustriesOpen(false);
     }, 200);
   };
 
@@ -257,6 +279,79 @@ export default function Navbar() {
                   </a>
                 );
               })}
+
+              {/* Industries Dropdown */}
+              <div
+                ref={industriesRef}
+                className="relative"
+                onMouseEnter={handleIndustriesMouseEnter}
+                onMouseLeave={handleIndustriesMouseLeave}
+              >
+                <button
+                  className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-full inline-flex items-center gap-1 ${
+                    pathname.startsWith("/for")
+                      ? "text-gold"
+                      : "text-text-secondary hover:text-text-primary"
+                  }`}
+                >
+                  Industries
+                  <svg
+                    className={`w-3 h-3 transition-transform duration-200 ${
+                      isIndustriesOpen ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                  {pathname.startsWith("/for") && (
+                    <motion.div
+                      layoutId="activeNav"
+                      className="absolute inset-0 rounded-full bg-gold/10 border border-gold/20"
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 30,
+                      }}
+                    />
+                  )}
+                </button>
+
+                <AnimatePresence>
+                  {isIndustriesOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-xl border border-border bg-card/95 backdrop-blur-xl shadow-2xl shadow-black/40 overflow-hidden"
+                    >
+                      <div className="py-2 max-h-[70vh] overflow-y-auto">
+                        {niches.map((niche) => (
+                          <Link
+                            key={niche.id}
+                            href={`/for/${niche.slug}`}
+                            onClick={() => {
+                              setIsIndustriesOpen(false);
+                              setIsMobileMenuOpen(false);
+                            }}
+                            className="w-full text-left px-4 py-2.5 text-sm text-text-secondary hover:text-gold hover:bg-surface/60 transition-colors flex items-center gap-3"
+                          >
+                            <span className="text-lg flex-shrink-0">{niche.icon}</span>
+                            <span>{niche.shortIndustry}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
 
             {/* CTA Button - Desktop */}
@@ -434,6 +529,68 @@ export default function Navbar() {
                   </motion.a>
                 );
               })}
+
+              {/* Industries Accordion - Mobile */}
+              <div className="flex flex-col items-center">
+                <motion.button
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  onClick={() => setIsMobileIndustriesOpen(!isMobileIndustriesOpen)}
+                  className={`text-2xl font-heading font-semibold transition-colors inline-flex items-center gap-2 ${
+                    pathname.startsWith("/for")
+                      ? "text-gold"
+                      : "text-text-secondary hover:text-text-primary"
+                  }`}
+                >
+                  Industries
+                  <svg
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      isMobileIndustriesOpen ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </motion.button>
+
+                <AnimatePresence>
+                  {isMobileIndustriesOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden mt-2"
+                    >
+                      <div className="flex flex-col items-center gap-2 py-2">
+                        {niches.map((niche) => (
+                          <Link
+                            key={niche.id}
+                            href={`/for/${niche.slug}`}
+                            onClick={() => {
+                              setIsMobileMenuOpen(false);
+                              setIsMobileIndustriesOpen(false);
+                            }}
+                            className="text-sm text-text-secondary hover:text-gold transition-colors flex items-center gap-2 py-1"
+                          >
+                            <span>{niche.icon}</span>
+                            <span>{niche.shortIndustry}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

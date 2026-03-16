@@ -2,6 +2,7 @@
 
 import { siteConfig, navigation } from "@/data/siteConfig";
 import { serviceCategories } from "@/data/serviceCategories";
+import { niches } from "@/data/niches";
 import Logo from "@/components/Logo";
 import Link from "next/link";
 
@@ -24,7 +25,7 @@ export default function Footer({ latestPosts = [] }: { latestPosts?: FooterPost[
   return (
     <footer className="relative border-t border-border bg-surface/30">
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand */}
           <div>
             <a href="#home" className="inline-block">
@@ -99,6 +100,30 @@ export default function Footer({ latestPosts = [] }: { latestPosts?: FooterPost[
                   </Link>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          {/* Industries */}
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-widest text-text-muted mb-4">
+              Industries
+            </h4>
+            <ul className="space-y-3">
+              {niches.slice(0, 6).map((niche) => (
+                <li key={niche.id}>
+                  <Link
+                    href={`/for/${niche.slug}`}
+                    className="text-sm text-text-secondary hover:text-gold transition-colors"
+                  >
+                    {niche.shortIndustry}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <span className="text-xs text-text-muted">
+                  + {niches.length - 6} more industries
+                </span>
+              </li>
             </ul>
           </div>
 
