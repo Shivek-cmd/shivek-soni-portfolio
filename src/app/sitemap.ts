@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/data/siteConfig";
 import { serviceCategories } from "@/data/serviceCategories";
+import { niches } from "@/data/niches";
 import { getAllPosts } from "@/lib/blog";
 import { blogCategories } from "@/data/categories";
 
@@ -76,6 +77,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(post.date),
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    // Niche industry pages
+    ...niches.map((niche) => ({
+      url: `${siteConfig.url}/for/${niche.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.85,
     })),
   ];
 }
