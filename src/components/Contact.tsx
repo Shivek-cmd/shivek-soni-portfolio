@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import Link from "next/link";
 import { siteConfig } from "@/data/siteConfig";
 
 export default function Contact() {
@@ -36,6 +37,33 @@ export default function Contact() {
               or strategic consulting — I&apos;m here to help. Tell me about your
               project and I&apos;ll get back to you within 24 hours.
             </p>
+
+            <div className="mt-6 rounded-xl border border-gold/20 bg-gold/5 p-5">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-text-primary mb-1">
+                    Prefer a live conversation?
+                  </p>
+                  <p className="text-sm text-text-secondary mb-3">
+                    Book a free 30-minute consultation and let&apos;s discuss your project in real time.
+                  </p>
+                  <Link
+                    href="/lets-talk"
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-gold hover:text-gold-light transition-colors"
+                  >
+                    Book a Free Call
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+            </div>
 
             <div className="mt-10 space-y-6">
               <div className="flex items-center gap-4">

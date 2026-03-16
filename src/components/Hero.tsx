@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { stats } from "@/data/siteConfig";
 import ParticleNetwork from "@/components/ParticleNetwork";
 
@@ -91,18 +92,15 @@ export default function Hero() {
                 />
               </svg>
             </a>
-            <a
-              href="#services"
-              onClick={(e) => {
-                e.preventDefault();
-                document
-                  .querySelector("#services")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="inline-flex items-center gap-2 rounded-full border border-border px-8 py-4 text-base font-medium text-text-primary transition-all duration-200 hover:border-border-hover hover:bg-surface"
+            <Link
+              href="/lets-talk"
+              className="inline-flex items-center gap-2 rounded-full border border-border px-8 py-4 text-base font-medium text-text-primary transition-all duration-200 hover:border-gold/30 hover:text-gold hover:bg-surface"
             >
-              Explore Services
-            </a>
+              Book a Free Call
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </Link>
           </motion.div>
 
           {/* Stats Bar */}

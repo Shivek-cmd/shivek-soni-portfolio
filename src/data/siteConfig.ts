@@ -44,6 +44,7 @@ export const navigation = [
   { label: "My Work", href: "#projects" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
+  { label: "Let's Talk", href: "/lets-talk" },
 ];
 
 export const stats = [

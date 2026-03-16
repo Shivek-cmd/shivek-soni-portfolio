@@ -66,10 +66,13 @@ export default function ServiceDetailClient({
                     </svg>
                   </a>
                   <Link
-                    href="/#contact"
+                    href="/lets-talk"
                     className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3 text-sm font-semibold text-text-primary hover:border-gold/30 hover:text-gold transition-colors"
                   >
-                    Contact Me
+                    Book a Free Call
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
                   </Link>
                 </div>
               </motion.div>
@@ -297,12 +300,12 @@ export default function ServiceDetailClient({
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Link
-                  href="/#contact"
+                  href="/lets-talk"
                   className="inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3.5 text-base font-semibold text-background hover:bg-gold-light hover:shadow-lg hover:shadow-gold/20 transition-all duration-200"
                 >
-                  Start Your Project
+                  Book a Free Consultation
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 </Link>
                 <Link
