@@ -3,13 +3,13 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { projects, projectCategories } from "@/data/projects";
 
 export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [activeCategory, setActiveCategory] = useState("All");
-  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const filteredProjects =
     activeCategory === "All"
@@ -57,10 +57,7 @@ export default function Projects() {
           {projectCategories.map((cat) => (
             <button
               key={cat}
-              onClick={() => {
-                setActiveCategory(cat);
-                setExpandedId(null);
-              }}
+              onClick={() => setActiveCategory(cat)}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                 activeCategory === cat
                   ? "bg-gold text-background"
@@ -75,73 +72,71 @@ export default function Projects() {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, index) => {
-              const isExpanded = expandedId === project.id;
-              return (
-                <motion.article
-                  key={project.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.4, delay: index * 0.06 }}
-                  layout
-                  className="group rounded-2xl border border-border bg-card/50 overflow-hidden hover:border-gold/20 hover:bg-card hover:shadow-xl hover:shadow-gold/5 transition-all duration-300"
+            {filteredProjects.map((project, index) => (
+              <motion.article
+                key={project.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.4, delay: index * 0.06 }}
+                layout
+                className="group"
+              >
+                <Link
+                  href={`/my-work/${project.slug}`}
+                  className="flex flex-col h-full rounded-2xl border border-border bg-card/50 overflow-hidden hover:border-gold/30 hover:bg-card hover:shadow-xl hover:shadow-gold/5 transition-all duration-500"
+                  aria-label={`View case study: ${project.client} — ${project.industry}`}
                 >
-                  {/* Project Image Placeholder */}
-                  <div className="relative aspect-[16/10] bg-surface overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-card via-surface to-card">
-                      <div className="text-center px-6">
-                        <div className="w-16 h-16 rounded-2xl bg-gold/10 border border-gold/20 flex items-center justify-center mx-auto mb-3">
-                          <svg className="w-8 h-8 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                        </div>
-                        <p className="text-xs text-text-muted">
-                          Screenshot Placeholder
-                        </p>
-                      </div>
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-6">
-                    {/* Industry & Client */}
-                    <div className="flex items-center gap-2 mb-3 flex-wrap">
-                      <span className="text-xs font-medium text-gold bg-gold/10 px-3 py-1 rounded-full">
+                  {/* Real project hero image */}
+                  <div className="relative h-48 overflow-hidden bg-card">
+                    <Image
+                      src={project.heroImage}
+                      alt={`${project.client} — GoHighLevel ${project.industry} project`}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/20 to-transparent" />
+                    {/* Industry badge */}
+                    <div className="absolute top-3 left-3">
+                      <span className="inline-block rounded-full bg-gold/90 px-3 py-1 text-xs font-semibold text-background">
                         {project.industry}
                       </span>
                     </div>
-                    <h3 className="text-xl font-bold text-text-primary group-hover:text-gold transition-colors">
+                    {/* Location badge */}
+                    <div className="absolute bottom-3 right-3">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-black/50 backdrop-blur-sm px-2.5 py-1 text-xs text-white/80">
+                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        {project.location.split(",")[0]}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex flex-col flex-1 p-6">
+                    <h3 className="text-xl font-heading font-bold text-text-primary group-hover:text-gold transition-colors mb-2">
                       {project.client}
                     </h3>
-                    <p className="mt-3 text-sm text-text-secondary leading-relaxed">
-                      {project.description}
+                    <p className="text-sm text-text-secondary leading-relaxed mb-4 flex-1">
+                      {project.shortDescription}
                     </p>
 
-                    {/* Outcome */}
-                    <div className="mt-4 flex items-start gap-2">
-                      <svg
-                        className="w-4 h-4 text-gold mt-0.5 flex-shrink-0"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                        />
-                      </svg>
-                      <p className="text-sm font-medium text-text-primary">
-                        {project.outcome}
-                      </p>
+                    {/* Key stats */}
+                    <div className="flex gap-5 mb-4 pt-3 border-t border-border">
+                      {project.stats.slice(0, 2).map((stat, si) => (
+                        <div key={si}>
+                          <div className="text-base font-bold text-gold">{stat.value}</div>
+                          <div className="text-[11px] text-text-muted mt-0.5">{stat.label}</div>
+                        </div>
+                      ))}
                     </div>
 
-                    {/* GHL Feature Tags */}
-                    <div className="mt-4 flex flex-wrap gap-1.5">
-                      {project.tags.map((tag) => (
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {project.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
                           className="text-xs px-2.5 py-1 rounded-full bg-gold/5 border border-gold/10 text-gold/80 font-medium"
@@ -151,109 +146,47 @@ export default function Projects() {
                       ))}
                     </div>
 
-                    {/* Expandable Features */}
-                    <button
-                      onClick={() =>
-                        setExpandedId(isExpanded ? null : project.id)
-                      }
-                      className="mt-4 text-xs font-medium text-text-muted hover:text-gold transition-colors flex items-center gap-1"
-                    >
-                      {isExpanded ? "Hide" : "Show"} GHL Features Built ({project.features.length})
+                    {/* CTA */}
+                    <div className="flex items-center gap-2 text-sm font-semibold text-gold group-hover:gap-3 transition-all duration-300">
+                      View Case Study
                       <svg
-                        className={`w-3.5 h-3.5 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}
+                        className="w-4 h-4"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17 8l4 4m0 0l-4 4m4-4H3"
+                        />
                       </svg>
-                    </button>
-
-                    <AnimatePresence>
-                      {isExpanded && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="overflow-hidden"
-                        >
-                          <ul className="mt-3 space-y-1.5 border-t border-border pt-3">
-                            {project.features.map((feature) => (
-                              <li
-                                key={feature}
-                                className="flex items-start gap-2 text-xs text-text-secondary"
-                              >
-                                <svg
-                                  className="w-3.5 h-3.5 text-gold mt-0.5 flex-shrink-0"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M5 13l4 4L19 7"
-                                  />
-                                </svg>
-                                {feature}
-                              </li>
-                            ))}
-                          </ul>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-
-                    {/* Visit Site & Case Study Buttons */}
-                    <div className="mt-5 pt-4 border-t border-border flex items-center gap-4">
-                      <a
-                        href={project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-gold hover:text-gold-light transition-colors group/link"
-                      >
-                        Visit Site
-                        <svg
-                          className="w-4 h-4 transition-transform duration-200 group-hover/link:translate-x-1"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                          />
-                        </svg>
-                      </a>
-                      <Link
-                        href={`/my-work/${project.slug}`}
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-text-secondary hover:text-gold transition-colors group/case"
-                      >
-                        View Case Study
-                        <svg
-                          className="w-4 h-4 transition-transform duration-200 group-hover/case:translate-x-1"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M17 8l4 4m0 0l-4 4m4-4H3"
-                          />
-                        </svg>
-                      </Link>
                     </div>
                   </div>
-                </motion.article>
-              );
-            })}
+                </Link>
+              </motion.article>
+            ))}
           </AnimatePresence>
         </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="text-center mt-14"
+        >
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3.5 text-sm font-semibold text-background hover:bg-gold-light hover:shadow-lg hover:shadow-gold/20 transition-all duration-200"
+          >
+            Build Something Like This
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
