@@ -261,7 +261,7 @@ export default function Navbar() {
 
             {/* CTA Button - Desktop */}
             <Link
-              href="/contact"
+              href="/lets-talk"
               className="hidden lg:inline-flex items-center gap-2 rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-background transition-all duration-200 hover:bg-gold-light hover:shadow-lg hover:shadow-gold/20"
             >
               Let&apos;s Talk
@@ -440,7 +440,7 @@ export default function Navbar() {
                 transition={{ delay: 0.45 }}
               >
                 <Link
-                  href="/contact"
+                  href="/lets-talk"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="mt-4 inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3 text-lg font-semibold text-background"
                 >

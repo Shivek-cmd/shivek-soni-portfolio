@@ -137,9 +137,15 @@ export default function Footer({ latestPosts = [] }: { latestPosts?: FooterPost[
           <p className="text-xs text-text-muted">
             &copy; {currentYear} {siteConfig.name}. All rights reserved.
           </p>
-          <p className="text-xs text-text-muted">
-            Built with precision. Powered by GoHighLevel expertise.
-          </p>
+          <div className="flex items-center gap-4">
+            <Link href="/lets-talk" className="text-xs text-gold hover:text-gold-light transition-colors font-medium">
+              Book a Free Consultation
+            </Link>
+            <span className="text-xs text-text-muted">|</span>
+            <p className="text-xs text-text-muted">
+              Built with precision. Powered by GoHighLevel expertise.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
